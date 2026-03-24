@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Samikhya Patra — SAP ABAP Consultant</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --accent:#378ADD;
+  --accent2:#1D9E75;
+  --accent3:#EF9F27;
+  --dark:#080c14;
+  --card:#0f1520;
+  --card2:#141d2e;
+  --text:#e8f0ff;
+  --muted:#7a90b8;
+  --border:#1e2d45;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:58px}
+.nav-logo{font-size:17px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.5px}
+.nav-links{display:flex;gap:1.4rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 2rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 20% 50%,rgba(55,138,221,0.12) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 80% 30%,rgba(29,158,117,0.1) 0%,transparent 60%)}
+.grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(55,138,221,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(55,138,221,0.04) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:960px;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(55,138,221,0.1);color:var(--accent);border:1px solid rgba(55,138,221,0.3);border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.4rem}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-name{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;line-height:1.1;margin-bottom:.6rem;color:var(--text)}
+.hero-name span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-role{font-size:1rem;color:var(--muted);margin-bottom:1.6rem}
+.hero-loc{font-size:13px;color:var(--muted);margin-bottom:2rem;display:flex;align-items:center;gap:6px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2rem}
+.btn-p{background:linear-gradient(135deg,var(--accent),#185FA5);color:#fff;padding:11px 24px;border-radius:7px;text-decoration:none;font-weight:700;font-size:14px;transition:opacity .2s}
+.btn-p:hover{opacity:.85}
+.btn-o{background:transparent;color:var(--text);padding:11px 24px;border-radius:7px;text-decoration:none;font-weight:600;font-size:14px;border:1px solid var(--border);transition:border-color .2s}
+.btn-o:hover{border-color:var(--accent)}
+.hero-links{display:flex;gap:1rem;flex-wrap:wrap}
+.hlink{color:var(--muted);font-size:12px;text-decoration:none;transition:color .2s}
+.hlink:hover{color:var(--accent)}
+
+/* HERO RIGHT — stats */
+.hero-right{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color .2s}
+.stat-card:hover{border-color:var(--accent)}
+.stat-num{font-size:2rem;font-weight:900;line-height:1}
+.stat-num.blue{color:var(--accent)}
+.stat-num.green{color:var(--accent2)}
+.stat-num.amber{color:var(--accent3)}
+.stat-lbl{font-size:12px;color:var(--muted);margin-top:.3rem}
+
+/* SECTIONS */
+section{padding:5rem 2rem;max-width:960px;margin:0 auto}
+.sec-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.4rem}
+.sec-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:.5rem}
+.sec-sub{font-size:14px;color:var(--muted);margin-bottom:2.5rem}
+.divider{width:40px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin-bottom:2rem}
+
+/* SKILLS */
+.skills-cats{display:flex;flex-direction:column;gap:1.4rem}
+.skill-cat-title{font-size:12px;font-weight:700;color:var(--accent3);letter-spacing:1px;text-transform:uppercase;margin-bottom:.7rem}
+.skill-row{display:flex;flex-wrap:wrap;gap:8px}
+.sk{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 14px;font-size:12px;font-weight:600;transition:all .2s;cursor:default}
+.sk.sap{color:var(--accent);border-color:rgba(55,138,221,0.3)}
+.sk.sap:hover{background:rgba(55,138,221,0.1)}
+.sk.hana{color:var(--accent2);border-color:rgba(29,158,117,0.3)}
+.sk.hana:hover{background:rgba(29,158,117,0.1)}
+.sk.tool{color:var(--accent3);border-color:rgba(239,159,39,0.3)}
+.sk.tool:hover{background:rgba(239,159,39,0.08)}
+.sk.func{color:#D4537E;border-color:rgba(212,83,126,0.3)}
+.sk.func:hover{background:rgba(212,83,126,0.08)}
+
+/* EXPERIENCE */
+.exp-list{display:flex;flex-direction:column;gap:1.5rem}
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:border-color .25s}
+.exp-card:hover{border-color:var(--accent)}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem}
+.exp-role{font-size:17px;font-weight:800}
+.exp-co{font-size:14px;font-weight:700;color:var(--accent);margin-top:.2rem}
+.exp-period{font-size:12px;color:var(--muted);background:var(--card2);border:1px solid var(--border);padding:4px 12px;border-radius:999px;white-space:nowrap}
+.exp-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;margin-bottom:.8rem;letter-spacing:.5px}
+.tag-sap{background:rgba(55,138,221,0.12);color:var(--accent)}
+.tag-coupa{background:rgba(239,159,39,0.1);color:var(--accent3)}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.exp-bullets li{font-size:13px;color:#9db8d8;padding-left:1.2rem;position:relative}
+.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:10px;top:3px}
+.highlight{color:var(--accent2);font-weight:700}
+
+/* CERTIFICATIONS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s}
+.cert-card:hover{border-color:var(--accent2)}
+.cert-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ci-azure{background:rgba(55,138,221,0.15)}
+.ci-sap{background:rgba(239,159,39,0.12)}
+.ci-cds{background:rgba(29,158,117,0.13)}
+.cert-name{font-size:13px;font-weight:700;line-height:1.4}
+.cert-by{font-size:11px;color:var(--muted);margin-top:.2rem}
+
+/* EDUCATION */
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;display:flex;gap:1.4rem;align-items:center}
+.edu-icon{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,rgba(55,138,221,0.2),rgba(29,158,117,0.15));display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.edu-deg{font-size:17px;font-weight:800}
+.edu-col{font-size:13px;color:var(--accent);margin:.2rem 0}
+.edu-yr{font-size:12px;color:var(--muted)}
+
+/* CONTACT */
+#contact{text-align:center}
+.contact-wrap{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:2rem}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.4rem;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .2s}
+.cc:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cci{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.cci-email{background:rgba(55,138,221,0.15)}
+.cci-phone{background:rgba(29,158,117,0.15)}
+
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+
+@media(max-width:640px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .exp-top{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Samikhya Patra</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:100%;padding-top:80px">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="badge-dot"></span>Open to Opportunities</div>
+      <h1 class="hero-name">Samikhya<br><span>Patra</span></h1>
+      <p class="hero-role">SAP ABAP &amp; S/4HANA Consultant · Coupa Specialist</p>
+      <div class="hero-loc">📍 Bangalore, India &nbsp;·&nbsp; 4+ Years Experience</div>
+      <div class="hero-btns">
+        <a href="#experience" class="btn-p">View Experience</a>
+        <a href="#contact" class="btn-o">Get in Touch</a>
+        <a href="#" onclick="downloadResume()" class="btn-o" style="display:flex;align-items:center;gap:7px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+      </div>
+      <div class="hero-links">
+        <a href="mailto:aspsimi@gmail.com" class="hlink">✉ aspsimi@gmail.com</a>
+        <a href="tel:+918249899697" class="hlink">📞 +91 8249899697</a>
+        <a href="https://github.com/Samikhyapatra" target="_blank" class="hlink">🐙 github.com/Samikhyapatra</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-card">
+        <div class="stat-num blue">4+</div>
+        <div class="stat-lbl">Years SAP Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num green">40%+</div>
+        <div class="stat-lbl">Performance Gain</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num amber">P1/P2</div>
+        <div class="stat-lbl">Incident Resolution</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num blue">3</div>
+        <div class="stat-lbl">Certifications</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">About Me</div>
+  <div class="sec-title">Professional Summary</div>
+  <div class="divider"></div>
+  <p style="font-size:15px;color:#b0c4de;line-height:2;max-width:700px">
+    SAP ABAP Consultant with <strong style="color:var(--text)">4+ years of experience</strong> in SAP ECC and S/4HANA environments, specializing in high-performance ABAP development, S/4HANA migration, and production support. Proven expertise in <strong style="color:var(--accent)">CDS Views, OData services, and HANA optimization</strong>. Strong exposure to MM (Procurement &amp; Inventory), with hands-on experience in resolving P1/P2 incidents, debugging SmartForms/Adobe Forms, and collaborating with cross-functional teams (MM, SD, FICO) to deliver scalable enterprise solutions.
+  </p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label">Technical Skills</div>
+  <div class="sec-title">What I Work With</div>
+  <div class="divider"></div>
+  <div class="skills-cats">
+    <div>
+      <div class="skill-cat-title">SAP ABAP</div>
+      <div class="skill-row">
+        <span class="sk sap">Reports</span>
+        <span class="sk sap">ALV (OO &amp; Interactive)</span>
+        <span class="sk sap">DDIC</span>
+        <span class="sk sap">BADIs / User Exits</span>
+        <span class="sk sap">SmartForms</span>
+        <span class="sk sap">Adobe Forms</span>
+        <span class="sk sap">Debugging</span>
+        <span class="sk sap">Enhancements</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-cat-title">S/4HANA Stack</div>
+      <div class="skill-row">
+        <span class="sk hana">CDS Views</span>
+        <span class="sk hana">AMDP</span>
+        <span class="sk hana">OData Services</span>
+        <span class="sk hana">ATC Remediation</span>
+        <span class="sk hana">Code Pushdown</span>
+        <span class="sk hana">HANA Optimization</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-cat-title">Tools &amp; Practices</div>
+      <div class="skill-row">
+        <span class="sk tool">Production Support</span>
+        <span class="sk tool">Incident Mgmt (P1/P2)</span>
+        <span class="sk tool">Root Cause Analysis</span>
+        <span class="sk tool">Retrofit Handling</span>
+        <span class="sk tool">SAP Coupa</span>
+        <span class="sk tool">BRD / FSD Writing</span>
+        <span class="sk tool">UAT</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-cat-title">Functional Exposure</div>
+      <div class="skill-row">
+        <span class="sk func">MM / P2P</span>
+        <span class="sk func">SD</span>
+        <span class="sk func">FICO</span>
+        <span class="sk func">S2P</span>
+        <span class="sk func">Supplier Onboarding</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">Experience</div>
+  <div class="sec-title">Where I've Worked</div>
+  <div class="divider"></div>
+  <div class="exp-list">
+
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Associate Consultant</div>
+          <div class="exp-co">Infosys</div>
+        </div>
+        <div class="exp-period">Oct 2024 – Present</div>
+      </div>
+      <span class="exp-tag tag-sap">SAP ABAP / S/4HANA</span>
+      <ul class="exp-bullets">
+        <li>Key contributor in ECC to S/4HANA brownfield migration — retrofit and remediation of custom objects.</li>
+        <li>Resolved ATC findings and optimized ABAP code for HANA readiness.</li>
+        <li>Developed CDS Views for high-performance reporting.</li>
+        <li>Managed P1/P2 production incidents within strict SLA timelines.</li>
+        <li>Debugged complex issues in SmartForms, Adobe Forms, and custom reports.</li>
+        <li>Collaborated with MM, SD, and FICO functional teams for end-to-end delivery.</li>
+        <li>Performed root cause analysis (RCA) for recurring production issues.</li>
+        <li>Delivered <span class="highlight">zero-defect support</span> during critical migration phases.</li>
+        <li>Improved report performance by <span class="highlight">40%+</span> using HANA optimization techniques.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">SAP ABAP &amp; Coupa Consultant</div>
+          <div class="exp-co">Capgemini</div>
+        </div>
+        <div class="exp-period">Dec 2021 – Oct 2024</div>
+      </div>
+      <span class="exp-tag tag-sap">SAP ABAP</span>
+      <ul class="exp-bullets">
+        <li>Developed custom ABAP programs and interactive ALV reports and dashboards.</li>
+        <li>Worked extensively on DDIC objects and optimized programs for HANA readiness.</li>
+      </ul>
+      <div style="margin:1rem 0 .5rem"><span class="exp-tag tag-coupa">SAP Coupa</span></div>
+      <ul class="exp-bullets">
+        <li>Performed customization and configuration across SAP Coupa modules.</li>
+        <li>Provided daily end-user support, resolving functional and configuration issues.</li>
+        <li>Worked on lookup values, approval chains, change requests, and config enhancements.</li>
+        <li>Hands-on with SIM form creation, supplier onboarding, and SAP ERP supplier integration.</li>
+        <li>Prepared BRD and Functional Specification Documents (FSD).</li>
+        <li>Managed unit testing, integration testing, and UAT for end-to-end process validation.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="sec-label">Certifications</div>
+  <div class="sec-title">Credentials</div>
+  <div class="divider"></div>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <div class="cert-icon ci-azure">☁️</div>
+      <div>
+        <div class="cert-name">Microsoft Certified Azure Fundamentals</div>
+        <div class="cert-by">Microsoft · AZ-900</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon ci-sap">🏅</div>
+      <div>
+        <div class="cert-name">SAP ABAP Level 1 &amp; Level 2 Developer</div>
+        <div class="cert-by">Capgemini Certified</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon ci-cds">📘</div>
+      <div>
+        <div class="cert-name">CDS Views Certification</div>
+        <div class="cert-by">Udemy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-label">Education</div>
+  <div class="sec-title">Academic Background</div>
+  <div class="divider"></div>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-deg">B.Tech in Electrical &amp; Electronics Engineering</div>
+      <div class="edu-col">Gandhi Institute for Technological Advancement</div>
+      <div class="edu-yr">2017 – 2021</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label">Contact</div>
+  <div class="sec-title">Let's Connect</div>
+  <div class="divider" style="margin:0 auto 1rem"></div>
+  <p style="color:var(--muted);font-size:14px;max-width:440px;margin:0 auto">Open to SAP ABAP / S/4HANA roles, consulting opportunities, and interesting projects.</p>
+  <div class="contact-wrap">
+    <a href="mailto:aspsimi@gmail.com" class="cc">
+      <div class="cci cci-email">✉️</div>aspsimi@gmail.com
+    </a>
+    <a href="tel:+918249899697" class="cc">
+      <div class="cci cci-phone">📞</div>+91 8249899697
+    </a>
+    <a href="https://github.com/Samikhyapatra" target="_blank" class="cc">
+      <div class="cci" style="background:rgba(136,135,128,0.2)">🐙</div>github.com/Samikhyapatra
+    </a>
+  </div>
+</section>
+
+<footer>Designed with care · Samikhya Patra © 2025</footer>
+
+<script>
+function downloadResume(){
+  const html=`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Samikhya Patra — CV</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:13px;color:#1a1a2e;line-height:1.6;padding:36px 44px}
+  h1{font-size:26px;font-weight:900;color:#0d1b3e;letter-spacing:.5px}
+  .sub{font-size:13px;color:#378ADD;font-weight:700;margin:2px 0 4px}
+  .contact-row{font-size:12px;color:#444;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:12px}
+  .contact-row span{display:flex;align-items:center;gap:4px}
+  hr{border:none;border-top:2px solid #378ADD;margin:10px 0 14px}
+  .sec-title{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#378ADD;margin-bottom:8px}
+  .summary{font-size:13px;color:#333;line-height:1.7;margin-bottom:20px}
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:20px}
+  .skill-cat{font-weight:700;color:#0d1b3e;font-size:12px}
+  .skill-val{color:#444;font-size:12px}
+  .job{margin-bottom:16px}
+  .job-head{display:flex;justify-content:space-between;align-items:baseline}
+  .job-role{font-size:14px;font-weight:800;color:#0d1b3e}
+  .job-co{font-size:13px;color:#378ADD;font-weight:700}
+  .job-period{font-size:11px;color:#888;white-space:nowrap}
+  .job-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;margin:4px 0 6px;background:#e8f3fc;color:#185FA5}
+  ul{padding-left:14px;margin-top:4px}
+  ul li{font-size:12px;color:#333;margin-bottom:3px}
+  .cert-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px;margin-bottom:20px}
+  .cert-list li{font-size:12px;color:#333;padding-left:14px;position:relative}
+  .cert-list li::before{content:'✓';position:absolute;left:0;color:#1D9E75;font-weight:700}
+  .edu-block{margin-bottom:4px}
+  .edu-deg{font-size:13px;font-weight:800;color:#0d1b3e}
+  .edu-col{font-size:12px;color:#378ADD}
+  .edu-yr{font-size:11px;color:#888}
+  .highlight{color:#1D9E75;font-weight:700}
+  @media print{body{padding:20px 30px}button{display:none}}
+</style>
+</head>
+<body>
+<h1>Samikhya Patra</h1>
+<div class="sub">SAP ABAP &amp; S/4HANA Consultant · Coupa Specialist</div>
+<div class="contact-row">
+  <span>📍 Bangalore, India</span>
+  <span>📞 +91 8249899697</span>
+  <span>✉ aspsimi@gmail.com</span>
+  <span>🐙 github.com/Samikhyapatra</span>
+</div>
+
+<div class="sec-title">Professional Summary</div>
+<hr/>
+<p class="summary">SAP ABAP Consultant with <strong>4+ years of experience</strong> in SAP ECC and S/4HANA environments, specializing in high-performance ABAP development, S/4HANA migration, and production support. Proven expertise in <strong>CDS Views, OData services, and HANA optimization</strong>. Strong exposure to MM (Procurement &amp; Inventory), with hands-on experience in resolving P1/P2 incidents, debugging SmartForms/Adobe Forms, and collaborating with cross-functional teams (MM, SD, FICO).</p>
+
+<div class="sec-title">Technical Skills</div>
+<hr/>
+<div class="skills-grid">
+  <div><span class="skill-cat">SAP ABAP: </span><span class="skill-val">Reports, ALV (OO &amp; Interactive), DDIC, BADIs/User Exits, SmartForms, Adobe Forms, Debugging</span></div>
+  <div><span class="skill-cat">S/4HANA: </span><span class="skill-val">CDS Views, AMDP, OData, ATC Remediation, Code Pushdown, HANA Optimization</span></div>
+  <div><span class="skill-cat">Tools &amp; Practices: </span><span class="skill-val">Production Support, Incident Mgmt (P1/P2), RCA, Retrofit Handling, SAP Coupa, BRD/FSD, UAT</span></div>
+  <div><span class="skill-cat">Functional Exposure: </span><span class="skill-val">MM (P2P / Procurement), SD, FICO, S2P, Supplier Onboarding</span></div>
+</div>
+
+<div class="sec-title">Professional Experience</div>
+<hr/>
+<div class="job">
+  <div class="job-head">
+    <div><div class="job-role">Associate Consultant</div><div class="job-co">Infosys</div></div>
+    <div class="job-period">Oct 2024 – Present</div>
+  </div>
+  <div class="job-tag">SAP ABAP / S/4HANA</div>
+  <ul>
+    <li>Key contributor in ECC to S/4HANA brownfield migration — retrofit and remediation of custom objects.</li>
+    <li>Resolved ATC findings and optimized ABAP code for HANA readiness.</li>
+    <li>Developed CDS Views for high-performance reporting.</li>
+    <li>Managed P1/P2 production incidents within strict SLA timelines.</li>
+    <li>Debugged complex issues in SmartForms, Adobe Forms, and custom reports.</li>
+    <li>Collaborated with MM, SD, and FICO functional teams for end-to-end delivery.</li>
+    <li>Performed root cause analysis (RCA) for recurring production issues.</li>
+    <li>Delivered <span class="highlight">zero-defect support</span> during critical migration phases.</li>
+    <li>Improved report performance by <span class="highlight">40%+</span> using HANA optimization techniques.</li>
+  </ul>
+</div>
+<div class="job">
+  <div class="job-head">
+    <div><div class="job-role">SAP ABAP &amp; Coupa Consultant</div><div class="job-co">Capgemini</div></div>
+    <div class="job-period">Dec 2021 – Oct 2024</div>
+  </div>
+  <div class="job-tag">SAP ABAP</div>
+  <ul>
+    <li>Developed custom ABAP programs and interactive ALV reports and dashboards.</li>
+    <li>Worked extensively on DDIC objects and optimized programs for HANA readiness.</li>
+  </ul>
+  <div class="job-tag" style="background:#fef3e2;color:#854F0B;margin-top:8px">SAP Coupa</div>
+  <ul>
+    <li>Performed customization and configuration across SAP Coupa modules.</li>
+    <li>Provided daily end-user support, resolving functional and configuration issues.</li>
+    <li>Worked on lookup values, approval chains, change requests, and config enhancements.</li>
+    <li>Hands-on with SIM form creation, supplier onboarding, and SAP ERP supplier integration.</li>
+    <li>Prepared Business Requirement Documents (BRD) and Functional Specification Documents (FSD).</li>
+    <li>Managed unit testing, integration testing, and UAT for end-to-end process validation.</li>
+  </ul>
+</div>
+
+<div class="sec-title">Certifications</div>
+<hr/>
+<ul class="cert-list">
+  <li>Microsoft Certified Azure Fundamentals (AZ-900)</li>
+  <li>Capgemini Certified SAP ABAP Level 1 &amp; Level 2 Developer</li>
+  <li>CDS Views Certification — Udemy</li>
+</ul>
+
+<div class="sec-title">Education</div>
+<hr/>
+<div class="edu-block">
+  <div class="edu-deg">B.Tech in Electrical &amp; Electronics Engineering (EEE)</div>
+  <div class="edu-col">Gandhi Institute for Technological Advancement</div>
+  <div class="edu-yr">2017 – 2021</div>
+</div>
+</body>
+</html>`;
+  const b=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(b);
+  const w=window.open(url,'_blank');
+  if(w){
+    w.onload=()=>{
+      setTimeout(()=>{w.print();},500);
+    };
+  }
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+}
+</script>
+</body>
+</html>
