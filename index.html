@@ -688,11 +688,11 @@ SAP ABAP · S/4HANA · CDS Views · OData · Coupa Consultant
 View Experience
 </a>
 
-<a href="Samikhya_Patra_Resume.pdf" download class="btn-o">
+<a href="#" onclick="downloadCV()" class="btn-o">
 Download CV
 </a>
 
-<a href="Samikhya_Patra_Resume.pdf" target="_blank" class="btn-o">
+<a href="#" onclick="previewCV()" class="btn-o">
 Preview Resume
 </a>
 
@@ -1162,7 +1162,119 @@ GitHub
 Samikhya Patra © 2026
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <script>
+
+function generateResumeHTML(){
+  return `
+    <div style="font-family: Arial, sans-serif; font-size: 11px; color: #000; line-height: 1.5; max-width: 8.5in; margin: 0 auto; padding: 0.5in;">
+      
+      <div style="text-align: left; margin-bottom: 10px;">
+        <h1 style="margin: 0; font-size: 18px; font-weight: bold;">Samikhya Patra</h1>
+        <p style="margin: 2px 0; font-size: 10px; color: #333;">SAP ABAP & S/4HANA Consultant · Coupa Specialist</p>
+        <p style="margin: 2px 0; font-size: 10px; color: #555;">Bangalore, India | +91 8249899697 | aspsimi@gmail.com | github.com/Samikhyapatra</p>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #000; margin: 8px 0;">
+
+      <h2 style="font-size: 12px; font-weight: bold; margin: 8px 0 4px 0;">PROFESSIONAL SUMMARY</h2>
+      <p style="margin: 0 0 8px 0; font-size: 11px; line-height: 1.6;">
+        SAP ABAP Consultant with 4+ years of experience in SAP ECC and S/4HANA environments, specializing in high-performance ABAP development, S/4HANA migration, and production support. Strong expertise in CDS Views, OData services, SmartForms, Adobe Forms, and HANA optimization. Experienced in resolving critical P1/P2 incidents, handling brownfield migration activities, and collaborating with MM, SD, and FICO teams to deliver scalable enterprise solutions.
+      </p>
+
+      <h2 style="font-size: 12px; font-weight: bold; margin: 8px 0 4px 0;">TECHNICAL SKILLS</h2>
+      <p style="margin: 0 0 2px 0; font-weight: bold; font-size: 11px;">SAP ABAP:</p>
+      <p style="margin: 0 0 4px 20px; font-size: 11px;">Reports, ALV Reports, Interactive ALV, DDIC, SmartForms, Adobe Forms, Enhancements, Debugging</p>
+      
+      <p style="margin: 4px 0 2px 0; font-weight: bold; font-size: 11px;">S/4HANA:</p>
+      <p style="margin: 0 0 4px 20px; font-size: 11px;">CDS Views, AMDP, OData, ATC Remediation, Code Pushdown, HANA Optimization</p>
+      
+      <p style="margin: 4px 0 2px 0; font-weight: bold; font-size: 11px;">Tools & Practices:</p>
+      <p style="margin: 0 0 4px 20px; font-size: 11px;">Production Support, P1/P2 Incidents, RCA, Retrofit Handling, BRD/FSD, UAT, SAP Coupa</p>
+      
+      <p style="margin: 4px 0 2px 0; font-weight: bold; font-size: 11px;">Functional Exposure:</p>
+      <p style="margin: 0 0 8px 20px; font-size: 11px;">MM, P2P, SD, FICO, Coupa, Supplier Onboarding</p>
+
+      <h2 style="font-size: 12px; font-weight: bold; margin: 8px 0 4px 0;">PROFESSIONAL EXPERIENCE</h2>
+
+      <p style="margin: 6px 0 0 0; font-weight: bold; font-size: 11px;">Senior Associate Consultant | Infosys | Oct 2024 – Present</p>
+      <p style="margin: 2px 0 4px 20px; font-size: 11px; font-style: italic;">SAP ABAP / S/4HANA</p>
+      <ul style="margin: 0 0 6px 40px; padding: 0; font-size: 11px; list-style-type: disc;">
+        <li>Worked for Apple and BIOCON clients on ECC to S/4HANA brownfield migration activities.</li>
+        <li>Resolved ATC findings and optimized ABAP code for HANA readiness.</li>
+        <li>Developed CDS Views for high-performance reporting.</li>
+        <li>Managed P1/P2 production incidents within strict SLA timelines.</li>
+        <li>Debugged complex issues in SmartForms, Adobe Forms, and custom reports.</li>
+        <li>Collaborated with MM, SD, and FICO functional teams for end-to-end delivery.</li>
+        <li>Performed RCA for recurring production issues.</li>
+        <li>Improved report performance by 40%+ using HANA optimization techniques.</li>
+      </ul>
+
+      <p style="margin: 6px 0 0 0; font-weight: bold; font-size: 11px;">SAP ABAP & Coupa Consultant | Capgemini | Dec 2021 – Oct 2024</p>
+      <p style="margin: 2px 0 2px 20px; font-size: 11px; font-style: italic;">SAP ABAP</p>
+      <ul style="margin: 0 0 4px 40px; padding: 0; font-size: 11px; list-style-type: disc;">
+        <li>Worked for FIAT client on SAP ABAP and S/4HANA development.</li>
+        <li>Developed custom ABAP programs and interactive ALV dashboards.</li>
+        <li>Worked extensively on DDIC objects and optimized programs for HANA readiness.</li>
+      </ul>
+
+      <p style="margin: 4px 0 2px 20px; font-size: 11px; font-style: italic;">SAP Coupa</p>
+      <ul style="margin: 0 0 8px 40px; padding: 0; font-size: 11px; list-style-type: disc;">
+        <li>Worked for Rolls-Royce as SAP Coupa Consultant.</li>
+        <li>Performed customization and configuration across SAP Coupa modules.</li>
+        <li>Handled approval chains, lookup values, and configuration enhancements.</li>
+        <li>Worked on supplier onboarding and SAP ERP integration.</li>
+        <li>Prepared BRD and Functional Specification Documents.</li>
+        <li>Managed unit testing, integration testing, and UAT activities.</li>
+      </ul>
+
+      <h2 style="font-size: 12px; font-weight: bold; margin: 8px 0 4px 0;">CERTIFICATIONS</h2>
+      <ul style="margin: 0 0 8px 20px; padding: 0; font-size: 11px; list-style-type: disc;">
+        <li>Microsoft Certified Azure Fundamentals (AZ-900)</li>
+        <li>Capgemini Certified SAP ABAP Level 1 & Level 2 Developer</li>
+        <li>CDS Views Certification - Udemy</li>
+      </ul>
+
+      <h2 style="font-size: 12px; font-weight: bold; margin: 8px 0 4px 0;">EDUCATION</h2>
+      <p style="margin: 0 0 2px 0; font-weight: bold; font-size: 11px;">B.Tech in Electrical & Electronics Engineering (EEE)</p>
+      <p style="margin: 0 0 8px 20px; font-size: 11px;">Gandhi Institute for Technological Advancement | 2017 – 2021 | CGPA: 8.5</p>
+
+    </div>
+  `;
+}
+
+function downloadCV(){
+  const element = document.createElement('div');
+  element.innerHTML = generateResumeHTML();
+  
+  const opt = {
+    margin: 10,
+    filename: 'Samikhya_Patra_Resume.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+  };
+  
+  html2pdf().set(opt).from(element).save();
+}
+
+function previewCV(){
+  const element = document.createElement('div');
+  element.innerHTML = generateResumeHTML();
+  
+  const opt = {
+    margin: 10,
+    filename: 'Samikhya_Patra_Resume.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+  };
+  
+  html2pdf().set(opt).from(element).output('dataurlstring').then(pdfUrl => {
+    window.open('data:application/pdf;base64,' + pdfUrl.split(',')[1], '_blank');
+  });
+}
 
 const reveals=document.querySelectorAll(".reveal");
 
